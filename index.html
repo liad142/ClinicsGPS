@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מפת קליניקות | ClinicsGPS</title>
+  <meta name="description" content="מפת קליניקות אינטראקטיבית - חיפוש, ניווט ומציאת הקליניקה הקרובה אליך">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- App CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="loader-container">
+      <div class="loader-spinner"></div>
+      <h2>טוען מפת קליניקות...</h2>
+      <p id="loading-status">מאתחל את המפה</p>
+      <div class="loader-bar">
+        <div class="loader-bar-fill" id="loading-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🏥</span>
+        <h1>מפת קליניקות</h1>
+      </div>
+      <button class="sidebar-toggle" id="sidebar-close" title="סגור תפריט">✕</button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="🔍 חיפוש קליניקה או עיר..." autocomplete="off">
+    </div>
+
+    <!-- City Filter -->
+    <div class="city-filter" id="city-filter">
+      <button class="city-chip active" data-city="all">הכל</button>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-value" id="total-clinics">0</span>
+        <span class="stat-label">קליניקות</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="total-cities">0</span>
+        <span class="stat-label">ערים</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" id="visible-count">0</span>
+        <span class="stat-label">מוצגות</span>
+      </div>
+    </div>
+
+    <!-- Clinic List -->
+    <div class="clinic-list" id="clinic-list">
+      <!-- Populated by JS -->
+    </div>
+  </aside>
+
+  <!-- Map Container -->
+  <div id="map"></div>
+
+  <!-- Floating Controls -->
+  <div class="floating-controls">
+    <button class="fab" id="sidebar-open" title="פתח תפריט">
+      <span>☰</span>
+    </button>
+    <button class="fab fab-location" id="btn-locate" title="מצא את המיקום שלי">
+      <span>📍</span>
+    </button>
+    <button class="fab fab-nearest" id="btn-nearest" title="קליניקות קרובות אליי">
+      <span>🔎</span>
+    </button>
+  </div>
+
+  <!-- Route Info Panel -->
+  <div class="route-panel" id="route-panel">
+    <div class="route-panel-header">
+      <h3>🧭 מסלול</h3>
+      <button class="btn-close-route" id="btn-close-route">✕</button>
+    </div>
+    <div class="route-info" id="route-info">
+      <div class="route-from">
+        <span class="route-label">מ:</span>
+        <span id="route-from-name">—</span>
+      </div>
+      <div class="route-to">
+        <span class="route-label">אל:</span>
+        <span id="route-to-name">—</span>
+      </div>
+      <div class="route-details">
+        <div class="route-detail">
+          <span class="route-detail-icon">🚗</span>
+          <span id="route-distance">—</span>
+        </div>
+        <div class="route-detail">
+          <span class="route-detail-icon">⏱️</span>
+          <span id="route-time">—</span>
+        </div>
+      </div>
+    </div>
+    <!-- Nearest Clinics List -->
+    <div class="nearest-list" id="nearest-list" style="display:none;">
+      <h4>5 הקליניקות הקרובות ביותר</h4>
+      <ul id="nearest-ul"></ul>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet MarkerCluster JS -->
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>
